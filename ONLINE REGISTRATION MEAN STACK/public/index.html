@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>Gravitas 2017 - Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    
+    <link href="../font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+
+    <!--Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link href="CSS/registration.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="AppCtrl">
+    
+    <div class="container-fluid" >
+        <h2 class="h2 text-center registration-heading">Gravitas 2017 - Registration</h2>
+    </div>
+
+    <div class="alert alert-danger myAlertBox" role="alert" id="myAlertBox">
+        <ul>
+            <li ng-repeat="x in errors"><span class="glyphicon glyphicon-exclamation-sign"></span><strong>{{" "+x}}</strong></li>
+        </ul>
+    </div>
+
+    <div class="container-fluid">
+        
+            <div class="row"> 
+                <form name="myForm" id="myFormHolderDiv" novalidate>
+                    <div class="col-md-6">
+                        <label for="fname" >First Name</label>
+                        <input type="text" name="fname" class="form-control input" id="fname" placeholder="First Name" ng-model="part.fname" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lname" >Last Name</label>
+                        <input type="text" name="lname" class="form-control input" id="lname" placeholder="Last Name" ng-model="part.lname" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tname" >Team Name (If Any)</label>
+                        <input type="text" name="teamName" class="form-control input" id="Tname" placeholder="Team/Clan/Group Name" ng-model="part.team" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Email" >Email</label>
+                        <input type="email" name="email" class="form-control input" id="email" placeholder="Email" ng-model="part.email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name">Mobile</label>
+                        <input type="number" name="phone" class="form-control input" id="phone" placeholder="Mobile" ng-model="part.mobile" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender">Gender</label>
+                        <div class="radio" id="gender">
+                            <label><input type="radio" name="optradio" id="optradio" value = "MALE" ng-model="part.gender" required>Male</label>
+                            <label><input type="radio" name="optradio" value="FEMALE" ng-model="part.gender">Female</label>
+                        </div>
+                    </div>  
+                    <div class="col-md-6">
+                        <label for="college">College</label>
+                        <input type="text" name="college" class="form-control input" id="college" placeholder="Name Of Your Collge" ng-model="part.college" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="City">City/Branch</label>
+                        <input type="text" name="city" class="form-control input" id="city" placeholder="City/Branch" name="college" ng-model="part.city" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="event_type">Event Type</label>
+                        <div class="radio" id="event_type">
+                            <label><input type="radio" id="eventRadio" name="eventRadio" ng-click="getEvents('offStage')" ng-model="part.etype" value="OFF_STAGE" required>Off - Stage</label>
+                            <label><input type="radio" name="eventRadio" ng-click="getEvents('onStage')" ng-model="part.etype" value='ON_STAGE'>On - Stage</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="event">Event Name</label>
+                        <select class="form-control" id="event" ng-model="part.ename" name="event" required>
+                            <option>event</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 text-center" style="margin-top:1%">
+                        <input type="text" id="txtCaptcha" class="unselectable" style="text-align: center; border: none; font-family: 'Special Elite', cursive;height: 30px; border-radius: 5px; margin: 2% 0px;font-size: 1.2em;" disabled/>
+                        <button id="btnrefresh" ng-click="GenerateCaptcha()" title="Referesh Image" style="height: 30px; border-radius: 5px;margin: 2% 0px;text-align: center;font-size: 1.2em;">Refresh</button>
+                        <input type="text" id="txtCompare" style="height: 30px; border-radius: 5px;margin: 2% 0px;" />
+                    </div>
+                    
+                    <div class="col-md-12 text-center">
+                        <button class="my-button" name="submitbutton" id="button" ng-click="test()" value="REGISTER">REGISTER</button>
+<!--                        <br>
+                        <a href="../index.html"><button class="my-button">BACk</button></a> -->
+                        <button id="sample" ng-click="testServer()">click Me</button>
+                    </div>
+                    
+                </form>
+            </div>
+    </div>
+    
+    
+<!--    <div class="afterRegistrationDiv">
+        <div class="alert alert-success success-details" id="success-details"><strong>REGISTRATION SUCCESSFUL</strong></div>
+        <div class="alert alert-info info-details" id="info-details">
+            <h4>PLEASE NOTE</h4>
+            <ul>
+                <li>YOUR REGISTRATION IS :<strong>{{responseData.regType}}</strong></li>
+                <li>YOUR REGISTRATION KEY IS:<strong>{{responseData.registration_id}}</strong></li>
+                <li>YOUR REGISTRATION AMOUNT IS : <strong><i class="fa fa-inr" aria-hidden="true"></i>{{responseData.registration_amount}}</strong></li>
+                <li><strong>PLEASE CARRY VALID ID PROOF AND YOUR REGISTRATION KEY FOR ON SPOT PAYMENT</strong></li>
+                <li><strong>REGISTRATION IS ONLY COMPLETE AFTER ON-SPOT PAYMENT</strong></li>
+            </ul>
+        </div>
+        
+    </div>-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!--        <script src="../../epignosos2017/public_html/bootstrap-3.3.7/dist/js/bootstrap.js" type="text/javascript"></script>-->
+    <script src="controllers/registration-controller.js" type="text/javascript"></script>
+</body>
+</html>
